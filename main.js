@@ -20,8 +20,8 @@ fs.readFile(input, (err, data) => {
 
         // storing the patches of dirt
         let dirtPatches = array
-        console.log("dirtPatches:");
-        console.log(dirtPatches);
+        // console.log("dirtPatches:");
+        // console.log(dirtPatches);
 
         // get x and y of room dimension
         let roomDimension = roomAndHooverPosition[0];
@@ -54,7 +54,7 @@ fs.readFile(input, (err, data) => {
         // dirt patches 
 
         // driving instructions
-        console.log(drivingIInstruction);
+        // console.log(drivingIInstruction);
         // putting each instruction in indexed a array to then iterate over it
         let instructionsArray = drivingIInstruction[0].split("");
         
@@ -64,48 +64,87 @@ fs.readFile(input, (err, data) => {
         // E = X + 1 
         // W = X + 1
 
-        let a = ['N', 'N', 'E', 'S', 'E', 'E', 'S', 'W', 'N', 'W', 'W' ];
+        // make dirt arrray accessible
+        console.log("dirtPatches: " + dirtPatches);
 
-        // TO remember hoover needs to move and if hoover position is equal to dirt patch position then increase clean-up counter
+        // array that will old the dirt patch positions
+        dirtPatchesArray= [];
+
+        dirtPatches.forEach((el) => {
+            dirtPatchesArray.push(el.split(" "))
+        })
+
+        // console.log(dirtPatchesArray);
+        // console.log(dirtPatchesArray[0][1]);
+
+       dirtPatchPositionX = dirtPatchesArray[0][0]
+       dirtPatchPositionY = dirtPatchesArray[0][1]
+
+    //    console.log("--" + dirtPatchPositionX)
+    //    console.log("--" + dirtPatchPositionY)
+
+       // TO remember hoover needs to move and if hoover position is equal to dirt patch position then increase clean-up counter
         // if statement to define movement of hoover
         // create a check against dirt patch method that will increment the clean-up counter
-        for (let i in a) {
-            // console.log(a[i]);
-            if (a[i] === "N"){
-                console.log("GO UP")
+
+        // counter will increment each time there is a clean up
+        let cleanupCounter = 0;
+        console.log(instructionsArray)
+        for (let i in instructionsArray) {
+            if (instructionsArray[i] === "N"){
                 hooverPositionY++;
-                console.log(hooverPositionY);
-            } else if (a[i] === "S"){
-                console.log("GO DOWN")
+                console.log("UP " + hooverPositionY)
+
+                dirtPatchesArray.forEach((el) => {
+                    console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + el[0] + " " + el[1])
+                    if ( hooverPositionX === Number(el[0]) && hooverPositionY === Number(el[1])){
+                        cleanupCounter++;
+                        console.log("increased")
+                    } 
+                })
+                
+            } else if (instructionsArray[i] === "S"){
                 hooverPositionY--;
-            } else if (a[i] === "E"){
-                console.log("GO RIGHT")
+                console.log("DOWN " + hooverPositionY)
+                // console.log(hooverPositionY)
+                dirtPatchesArray.forEach((el) => {
+                    console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + Number(el[0]) + " " + Number(el[1]))
+                    // console.log(Number(el[1]))
+                    if (hooverPositionX === Number(el[0]) && hooverPositionY === Number(el[1])){
+                        cleanupCounter++;
+                        console.log("increased")
+                    } 
+                })
+
+            } else if (instructionsArray[i] === "E"){
                 hooverPositionX++;
-            } else if (a[i] === "W"){
-                console.log("GO LEFT")
+                console.log("RIGHT " + hooverPositionY)
+                // console.log(hooverPositionX)
+                dirtPatchesArray.forEach((el) => {
+                    console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + Number(el[0]) + " " + Number(el[1]))
+                    if (hooverPositionY === Number(el[1]) && hooverPositionX === Number(el[0]) ){
+                        return cleanupCounter++;
+                        console.log("increased")
+                    } 
+                })
+
+            } else if (instructionsArray[i] === "W"){
                 hooverPositionX--;
+                console.log("LEFT " + hooverPositionX)
+                dirtPatchesArray.forEach((el) => {
+                    console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + Number(el[0]) + " " + Number(el[1]))
+                    if (hooverPositionY === Number(el[1]) && hooverPositionX === Number(el[0]) ){
+                        cleanupCounter++;
+                        console.log("increased")
+                    } 
+                })
             }
         }
-
+       
+        console.log("Final hoover position:")
         console.log(hooverPositionX + " " + hooverPositionY);
         
+        console.log("Patches cleaned up:")
+        console.log(cleanupCounter);
 
-
-        
-
-
-        return array;
     }) 
-
-    // const array1 = [1, 4, 9, 16];
-
-    // // pass a function to map
-    // const map1 = array1.map((x) => {
-    //     return x * 2
-    // });
-
-    // console.log(map1);
-
-
-
-
