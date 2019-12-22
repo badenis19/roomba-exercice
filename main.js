@@ -51,10 +51,6 @@ fs.readFile(input, (err, data) => {
         console.log("Hoover position:")
         console.log(`X = ${hooverPositionX} Y = ${hooverPositionY}`)
     
-        // dirt patches 
-
-        // driving instructions
-        // console.log(drivingIInstruction);
         // putting each instruction in indexed a array to then iterate over it
         let instructionsArray = drivingIInstruction[0].split("");
         
@@ -74,22 +70,12 @@ fs.readFile(input, (err, data) => {
             dirtPatchesArray.push(el.split(" "))
         })
 
-        // console.log(dirtPatchesArray);
-        // console.log(dirtPatchesArray[0][1]);
-
        dirtPatchPositionX = dirtPatchesArray[0][0]
        dirtPatchPositionY = dirtPatchesArray[0][1]
 
-    //    console.log("--" + dirtPatchPositionX)
-    //    console.log("--" + dirtPatchPositionY)
-
-       // TO remember hoover needs to move and if hoover position is equal to dirt patch position then increase clean-up counter
-        // if statement to define movement of hoover
-        // create a check against dirt patch method that will increment the clean-up counter
-
         // counter will increment each time there is a clean up
         let cleanupCounter = 0;
-        console.log(instructionsArray)
+        // console.log(instructionsArray)
         for (let i in instructionsArray) {
             if (instructionsArray[i] === "N"){
                 hooverPositionY++;
@@ -99,32 +85,31 @@ fs.readFile(input, (err, data) => {
                     console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + el[0] + " " + el[1])
                     if ( hooverPositionX === Number(el[0]) && hooverPositionY === Number(el[1])){
                         cleanupCounter++;
-                        console.log("increased")
+
+                        console.log("Dirt cleaned")
                     } 
                 })
                 
             } else if (instructionsArray[i] === "S"){
                 hooverPositionY--;
                 console.log("DOWN " + hooverPositionY)
-                // console.log(hooverPositionY)
                 dirtPatchesArray.forEach((el) => {
                     console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + Number(el[0]) + " " + Number(el[1]))
-                    // console.log(Number(el[1]))
                     if (hooverPositionX === Number(el[0]) && hooverPositionY === Number(el[1])){
                         cleanupCounter++;
-                        console.log("increased")
+                        console.log("Dirt cleaned")
                     } 
                 })
 
             } else if (instructionsArray[i] === "E"){
                 hooverPositionX++;
                 console.log("RIGHT " + hooverPositionY)
-                // console.log(hooverPositionX)
                 dirtPatchesArray.forEach((el) => {
                     console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + Number(el[0]) + " " + Number(el[1]))
                     if (hooverPositionY === Number(el[1]) && hooverPositionX === Number(el[0]) ){
-                        return cleanupCounter++;
-                        console.log("increased")
+                        cleanupCounter++;
+                        console.log("Dirt cleaned")
+                        
                     } 
                 })
 
@@ -135,7 +120,7 @@ fs.readFile(input, (err, data) => {
                     console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + Number(el[0]) + " " + Number(el[1]))
                     if (hooverPositionY === Number(el[1]) && hooverPositionX === Number(el[0]) ){
                         cleanupCounter++;
-                        console.log("increased")
+                        console.log("Dirt cleaned")
                     } 
                 })
             }
