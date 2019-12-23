@@ -65,49 +65,60 @@ fs.readFile(input, (err, data) => {
 
         // array that will old the dirt patch positions
         dirtPatchesArray= [];
+        
+        //console.log("<<<<" , dirtPatches)
 
         dirtPatches.forEach((el) => {
-            dirtPatchesArray.push(el.split(" "))
+            dirts = {}
+            dirts["position"] = el.split(" ");
+            dirts["cleaned"] = false;
+            dirtPatchesArray.push(dirts);
         })
 
-       dirtPatchPositionX = dirtPatchesArray[0][0]
-       dirtPatchPositionY = dirtPatchesArray[0][1]
+        // console.log(">>>" , dirtPatchesArray)
 
+    //    dirtPatchPositionX = dirtPatchesArray[0].position[0] // X
+    //    dirtPatchPositionY = dirtPatchesArray[0].position[1] // Y 
+    //    dirtPatchPositionStatus = dirtPatchesArray[0].cleaned // false/true 
+      
         // counter will increment each time there is a clean up
         let cleanupCounter = 0;
+
         // console.log(instructionsArray)
+
         for (let i in instructionsArray) {
             if (instructionsArray[i] === "N"){
                 hooverPositionY++;
-                console.log("UP " + hooverPositionY)
 
                 dirtPatchesArray.forEach((el) => {
-                    console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + el[0] + " " + el[1])
-                    if ( hooverPositionX === Number(el[0]) && hooverPositionY === Number(el[1])){
+                    console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + el.position[0] + " " + el.position[1])
+                    if ( hooverPositionX === Number(el.position[0]) && hooverPositionY === Number(el.position[1]) && el.cleaned === false){
                         cleanupCounter++;
-
+                        el.dirtPatchPositionStatus = true;
                         console.log("Dirt cleaned")
                     } 
                 })
-                
+            
             } else if (instructionsArray[i] === "S"){
                 hooverPositionY--;
-                console.log("DOWN " + hooverPositionY)
                 dirtPatchesArray.forEach((el) => {
-                    console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + Number(el[0]) + " " + Number(el[1]))
-                    if (hooverPositionX === Number(el[0]) && hooverPositionY === Number(el[1])){
+                    console.log(">>> " + el.cleaned)
+                    console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + el.position[0] + " " + el.position[1])
+                    if (hooverPositionX === Number(el.position[0]) && hooverPositionY === Number(el.position[1]) && el.cleaned === false){
                         cleanupCounter++;
+                        el.cleaned = true;
                         console.log("Dirt cleaned")
+                        console.log(el.cleaned)
                     } 
                 })
 
             } else if (instructionsArray[i] === "E"){
                 hooverPositionX++;
-                console.log("RIGHT " + hooverPositionY)
                 dirtPatchesArray.forEach((el) => {
-                    console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + Number(el[0]) + " " + Number(el[1]))
-                    if (hooverPositionY === Number(el[1]) && hooverPositionX === Number(el[0]) ){
+                    console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + el.position[0] + " " + el.position[1])
+                    if (hooverPositionY === Number(el.position[1]) && hooverPositionX === Number(el.position[0]) && el.cleaned === false ){
                         cleanupCounter++;
+                        el.dirtPatchPositionStatus = true;
                         console.log("Dirt cleaned")
                         
                     } 
@@ -115,11 +126,11 @@ fs.readFile(input, (err, data) => {
 
             } else if (instructionsArray[i] === "W"){
                 hooverPositionX--;
-                console.log("LEFT " + hooverPositionX)
                 dirtPatchesArray.forEach((el) => {
-                    console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + Number(el[0]) + " " + Number(el[1]))
-                    if (hooverPositionY === Number(el[1]) && hooverPositionX === Number(el[0]) ){
+                    console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + el.position[0] + " " + el.position[1])
+                    if (hooverPositionY === Number(el.position[1]) && hooverPositionX === Number(el.position[0]) && el.cleaned === false ){
                         cleanupCounter++;
+                        el.dirtPatchPositionStatus = true;
                         console.log("Dirt cleaned")
                     } 
                 })
@@ -131,5 +142,4 @@ fs.readFile(input, (err, data) => {
         
         console.log("Patches cleaned up:")
         console.log(cleanupCounter);
-
     }) 
