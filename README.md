@@ -1,6 +1,7 @@
 # roomba-exercice
 Program that navigates an imaginary robotic hoover.
 
+(Note: all the test code /prints (console.log) where removed for code clarity. However, they can be provided upon request or found on previous versions.)
 ## Prerequisites
 ```  - node 8.10.0 or greater ```
 
