@@ -86,8 +86,8 @@ fs.readFile(input, (err, data) => {
 
         // console.log(instructionsArray)
 
-        for (let i in instructionsArray) {
-            if (instructionsArray[i] === "N"){
+        const updateHooverPosition = instruction => {
+            if (instruction === 'N') {
                 hooverPositionY++;
 
                 dirtPatchesArray.forEach((el) => {
@@ -99,8 +99,11 @@ fs.readFile(input, (err, data) => {
                     } 
                 })
             
-            } else if (instructionsArray[i] === "S"){
+
+                
+            } else if (instruction === 'S') {
                 hooverPositionY--;
+
                 dirtPatchesArray.forEach((el) => {
                     console.log(">>> " + el.cleaned)
                     console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + el.position[0] + " " + el.position[1])
@@ -112,8 +115,9 @@ fs.readFile(input, (err, data) => {
                     } 
                 })
 
-            } else if (instructionsArray[i] === "E"){
+            } else if (instruction === 'E') {
                 hooverPositionX++;
+
                 dirtPatchesArray.forEach((el) => {
                     console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + el.position[0] + " " + el.position[1])
                     if (hooverPositionY === Number(el.position[1]) && hooverPositionX === Number(el.position[0]) && el.cleaned === false ){
@@ -123,9 +127,9 @@ fs.readFile(input, (err, data) => {
                         
                     } 
                 })
-
-            } else if (instructionsArray[i] === "W"){
+            } else if (instruction === 'W') {
                 hooverPositionX--;
+
                 dirtPatchesArray.forEach((el) => {
                     console.log("Hoover position " + hooverPositionX + " " + hooverPositionY + " || Dirt Position " + el.position[0] + " " + el.position[1])
                     if (hooverPositionY === Number(el.position[1]) && hooverPositionX === Number(el.position[0]) && el.cleaned === false ){
@@ -135,6 +139,12 @@ fs.readFile(input, (err, data) => {
                     } 
                 })
             }
+        }
+
+        for (let i in instructionsArray) {
+            const instruction = instructionsArray[i]; // 'N' || 'S' || 'E' || 'W'
+            updateHooverPosition(instruction); // what does this return 
+            // updateDirtPatches(instruction); // what does this return 
         }
        
         console.log("Final hoover position:")
