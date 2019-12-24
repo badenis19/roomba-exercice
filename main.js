@@ -65,45 +65,45 @@ fs.readFile(input, (err, data) => {
     const updateHooverPosition = instruction => {
         if (instruction === 'N') {
             hooverPositionY++; // increment Y axis
-            dirtPatchesArray.forEach((el) => {
+            dirtPatchesArray.forEach((dirt) => {
                  /* If the current hoover position is equal to one of the dirts position AND that the dirt hasn't been cleaned increase the counter + change the status 
                  the dirt to cleaned (true) */
-                if (hooverPositionX === Number(el.position[0]) && hooverPositionY === Number(el.position[1]) && el.cleaned === false) {
+                if (hooverPositionX === Number(dirt.position[0]) && hooverPositionY === Number(dirt.position[1]) && dirt.cleaned === false) {
                     cleanupCounter++;
-                    el.dirtPatchPositionStatus = true;
+                    dirt.dirtPatchPositionStatus = true;
                 }
             })
 
         } else if (instruction === 'S') {
             hooverPositionY--; // decrement Y axis
-            dirtPatchesArray.forEach((el) => {
+            dirtPatchesArray.forEach((dirt) => {
                  /* If the current hoover position is equal to one of the dirts position AND that the dirt hasn't been cleaned increase the counter + change the status 
                  the dirt to cleaned (true) */
-                if (hooverPositionX === Number(el.position[0]) && hooverPositionY === Number(el.position[1]) && el.cleaned === false) {
+                if (hooverPositionX === Number(dirt.position[0]) && hooverPositionY === Number(dirt.position[1]) && dirt.cleaned === false) {
                     cleanupCounter++;
-                    el.cleaned = true;
+                    dirt.cleaned = true;
                 }
             })
 
         } else if (instruction === 'E') {
             hooverPositionX++; // increment X axis
-            dirtPatchesArray.forEach((el) => {
+            dirtPatchesArray.forEach((dirt) => {
                  /* If the current hoover position is equal to one of the dirts position AND that the dirt hasn't been cleaned increase the counter + change the status 
                  the dirt to cleaned (true) */
-                if (hooverPositionX === Number(el.position[0]) && hooverPositionY === Number(el.position[1]) && el.cleaned === false) {
+                if (hooverPositionX === Number(dirt.position[0]) && hooverPositionY === Number(dirt.position[1]) && dirt.cleaned === false) {
                     cleanupCounter++;
-                    el.dirtPatchPositionStatus = true;
+                    dirt.dirtPatchPositionStatus = true;
 
                 }
             })
         } else if (instruction === 'W') {
             hooverPositionX--; // decrement X axis
-            dirtPatchesArray.forEach((el) => {
+            dirtPatchesArray.forEach((dirt) => {
                  /* If the current hoover position is equal to one of the dirts position and that the dirt hasn't been cleaned increase the counter + change the status 
                  the dirt to cleaned (true) */
-                if (hooverPositionX === Number(el.position[0]) && hooverPositionY === Number(el.position[1]) && el.cleaned === false) {
+                if (hooverPositionX === Number(dirt.position[0]) && hooverPositionY === Number(dirt.position[1]) && dirt.cleaned === false) {
                     cleanupCounter++;
-                    el.dirtPatchPositionStatus = true;
+                    dirt.dirtPatchPositionStatus = true;
                 }
             })
         }
